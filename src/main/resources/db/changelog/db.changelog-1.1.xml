@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="1" author="news-app">
+        <sql>
+            INSERT INTO users (id, username, email, password, created_at, updated_at) VALUES
+            ('550e8400-e29b-41d4-a716-446655440001', 'admin', 'admin@news.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDi', NOW(), NOW()),
+            ('550e8400-e29b-41d4-a716-446655440002', 'user1', 'user1@news.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDi', NOW(), NOW()),
+            ('550e8400-e29b-41d4-a716-446655440003', 'user2', 'user2@news.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDi', NOW(), NOW());
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="news-app">
+        <sql>
+            INSERT INTO posts (id, title, content, author_id, created_at, updated_at) VALUES
+            ('650e8400-e29b-41d4-a716-446655440001', 'Добро пожаловать в News App!', 'Это первый пост в нашем новостном приложении. Здесь вы можете делиться своими мыслями и читать новости от других пользователей.', '550e8400-e29b-41d4-a716-446655440001', NOW() - INTERVAL '2 hours', NOW() - INTERVAL '2 hours'),
+            ('650e8400-e29b-41d4-a716-446655440002', 'Spring Boot 2.7.16', 'Отличный фреймворк для создания веб-приложений на Java. Простой в использовании и мощный.', '550e8400-e29b-41d4-a716-446655440002', NOW() - INTERVAL '1 hour', NOW() - INTERVAL '1 hour'),
+            ('650e8400-e29b-41d4-a716-446655440003', 'Lombok - это круто!', 'Lombok значительно упрощает написание Java кода, автоматически генерируя геттеры, сеттеры, конструкторы и многое другое.', '550e8400-e29b-41d4-a716-446655440001', NOW() - INTERVAL '30 minutes', NOW() - INTERVAL '30 minutes'),
+            ('650e8400-e29b-41d4-a716-446655440004', 'Docker и контейнеризация', 'Docker позволяет легко упаковывать приложения в контейнеры, что упрощает развертывание и масштабирование.', '550e8400-e29b-41d4-a716-446655440003', NOW() - INTERVAL '15 minutes', NOW() - INTERVAL '15 minutes'),
+            ('650e8400-e29b-41d4-a716-446655440005', 'PostgreSQL - надежная БД', 'PostgreSQL - это мощная, открытая система управления базами данных с отличной производительностью.', '550e8400-e29b-41d4-a716-446655440002', NOW() - INTERVAL '5 minutes', NOW() - INTERVAL '5 minutes');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

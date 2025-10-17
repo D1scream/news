@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed - News App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="bg-white shadow-sm rounded-lg mb-8">
+            <div class="px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">News Feed</h1>
+                    <div>
+                        <a href="/posts/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                            Create Post
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="space-y-6">
+            <div th:if="${#lists.isEmpty(posts)}" class="text-center py-12">
+                <div class="text-gray-500">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No posts yet</h3>
+                    <p class="mt-1 text-sm text-gray-500">Be the first to create a post!</p>
+                </div>
+            </div>
+            
+            <div th:each="post : ${posts}" class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div th:class="${post.authorUsername == 'guest'} ? 'w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center' : 'w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center'">
+                                <span class="text-white text-sm font-medium" th:text="${post.authorUsername.substring(0,1).toUpperCase()}"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900" th:text="${post.authorUsername}"></p>
+                                <p class="text-xs text-gray-500" th:text="${#temporals.format(post.createdAt, 'MMM dd, yyyy HH:mm')}"></p>
+                                <span th:if="${post.authorUsername == 'guest'}" class="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">Гость</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-xl font-semibold text-gray-900 mb-3" th:text="${post.title}"></h2>
+                    <p class="text-gray-700 leading-relaxed" th:text="${post.content}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${totalPages > 1}" class="mt-8 flex justify-center">
+            <nav class="flex space-x-2">
+                <a th:if="${hasPrevious}" 
+                   th:href="@{/(page=${currentPage - 1}, size=${size})}" 
+                   class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                    Previous
+                </a>
+                
+                <span th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" 
+                      th:if="${pageNum >= currentPage - 2 and pageNum <= currentPage + 2}">
+                    <a th:if="${pageNum != currentPage}"
+                       th:href="@{/(page=${pageNum}, size=${size})}" 
+                       class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                       th:text="${pageNum + 1}"></a>
+                    <span th:if="${pageNum == currentPage}"
+                          class="px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-md"
+                          th:text="${pageNum + 1}"></span>
+                </span>
+                
+                <a th:if="${hasNext}" 
+                   th:href="@{/(page=${currentPage + 1}, size=${size})}" 
+                   class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                    Next
+                </a>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>
