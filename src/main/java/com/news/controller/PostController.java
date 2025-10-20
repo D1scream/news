@@ -41,14 +41,8 @@ public class PostController {
         }
         
         try {
-            User currentUser;
-            if (authentication != null && authentication.isAuthenticated()) {
-                currentUser = userService.findByUsername(authentication.getName())
-                        .orElseThrow(() -> new RuntimeException("User not found"));
-            } else {
-                currentUser = userService.findByUsername("guest")
-                        .orElseThrow(() -> new RuntimeException("Guest user not found"));
-            }
+            User currentUser = userService.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
             
             postService.createPost(postCreateDto, currentUser);
             redirectAttributes.addFlashAttribute("successMessage", "Post created successfully!");

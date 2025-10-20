@@ -13,9 +13,12 @@
             <div class="px-6 py-4">
                 <div class="flex justify-between items-center">
                     <h1 class="text-2xl font-bold text-gray-900">News Feed</h1>
-                    <div>
-                        <a href="/posts/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    <div class="flex items-center gap-3">
+                        <a th:if="${#authorization.expression('isAuthenticated()')}" href="/posts/create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                             Create Post
+                        </a>
+                        <a th:if="${!#authorization.expression('isAuthenticated()')}" href="/login" class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800">
+                            Login
                         </a>
                     </div>
                 </div>

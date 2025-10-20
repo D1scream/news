@@ -2,6 +2,7 @@ package com.news.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +30,8 @@ public class SecurityConfig {
         http
             .authorizeRequests(authz -> authz
                 .antMatchers("/", "/register", "/login", "/auth/**", "/css/**", "/js/**", "/images/**").permitAll()
-                .antMatchers("/posts/create", "/posts/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/posts/create").authenticated()
+                .antMatchers(HttpMethod.POST, "/posts/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
