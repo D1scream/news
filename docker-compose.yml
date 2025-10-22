@@ -4,14 +4,14 @@ services:
     container_name: news-postgres
     environment:
       POSTGRES_DB: news_db
-      POSTGRES_USER: news_user
-      POSTGRES_PASSWORD: news_password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U news_user -d news_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d news_db"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -24,8 +24,8 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/news_db
-      SPRING_DATASOURCE_USERNAME: news_user
-      SPRING_DATASOURCE_PASSWORD: news_password
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_LIQUIBASE_CLEAR_CHECKSUMS: "true"
     depends_on:
       postgres:
