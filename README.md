@@ -1,7 +1,5 @@
 # News Application
 
-Простое приложение для новостей на Spring Boot.
-
 ## Запуск
 
 ```bash

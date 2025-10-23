@@ -16,7 +16,7 @@
     <artifactId>news-application</artifactId>
     <version>1.0.0</version>
     <name>News Application</name>
-    <description>Simple news/twitter-like application</description>
+    <description>news application</description>
 
     <properties>
         <java.version>11</java.version>

@@ -2,6 +2,7 @@ package com.news.controller;
 
 import com.news.dto.PostCreateDto;
 import com.news.entity.User;
+import com.news.exception.BusinessException;
 import com.news.service.PostService;
 import com.news.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class PostController {
         
         try {
             User currentUser = userService.findByUsername(authentication.getName())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() -> new BusinessException("User not found"));
             
             postService.createPost(postCreateDto, currentUser);
             redirectAttributes.addFlashAttribute("successMessage", "Post created successfully!");

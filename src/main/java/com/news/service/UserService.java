@@ -2,6 +2,7 @@ package com.news.service;
 
 import com.news.dto.UserRegistrationDto;
 import com.news.entity.User;
+import com.news.exception.BusinessException;
 import com.news.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,15 +40,15 @@ public class UserService {
     @Transactional
     public User registerUser(UserRegistrationDto registrationDto) {
         if (existsByUsername(registrationDto.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new BusinessException("Username already exists");
         }
         
         if (existsByEmail(registrationDto.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new BusinessException("Email already exists");
         }
         
         if (!registrationDto.getPassword().equals(registrationDto.getConfirmPassword())) {
-            throw new RuntimeException("Passwords do not match");
+            throw new BusinessException("Passwords do not match");
         }
         
         User user = User.builder()
