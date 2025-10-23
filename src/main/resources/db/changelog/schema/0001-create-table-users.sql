@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset news-app:0001
+--changeset sga:schema-0001
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,

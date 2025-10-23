@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
---changeset news-app:0002
+--changeset sga:schema-0002
 CREATE TABLE IF NOT EXISTS posts (
-    id UUID PRIMARY KEY NOT NULL,
+    id UUID PRIMARY KEY NOT NULL,   
     title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     author_id UUID NOT NULL REFERENCES users(id),
