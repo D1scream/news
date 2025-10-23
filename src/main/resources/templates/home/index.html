@@ -28,7 +28,7 @@
         
         <div th:each="post : ${posts}" class="bg-white border rounded-lg p-4 mb-4 shadow-sm">
             <div class="flex justify-between items-center mb-2">
-                <strong th:text="${post.authorUsername}">Автор</strong>
+                <strong>author: <span th:text="${post.authorUsername}">Автор</span></strong>
                 <span class="text-sm text-gray-500" th:text="${#temporals.format(post.createdAt, 'dd.MM.yyyy HH:mm')}">Дата</span>
             </div>
             <h2 class="text-xl font-semibold mb-2" th:text="${post.title}">Заголовок</h2>
